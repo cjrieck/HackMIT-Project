@@ -8,7 +8,7 @@ var app = http.createServer(function(request, response) {
 			throw err;
 		}
 		response.writeHead(200, {"Content-Type": "text/html"});
-		response.write("simplePage.html");
+		response.write(html);
 		response.end();
 	});
 	
