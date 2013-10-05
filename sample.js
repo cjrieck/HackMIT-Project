@@ -3,7 +3,7 @@ var fs = require("fs");
 
 var app = http.createServer(function(request, response) {
 
-	fs.readfile('./simplePage.html', function(err, html){
+	fs.readFile('./simplePage.html', function(err, html){
 		if (err){
 			throw err;
 		}
@@ -20,7 +20,7 @@ var app = http.createServer(function(request, response) {
 // 	response.write("Hello World at " + pathname);
 // 	response.end();
 
-});
+}).listen(8000);
 
-var port = process.env.PORT || 5000;
-app.listen(port);
+// var port = process.env.PORT || 5000;
+// app.listen(port);
