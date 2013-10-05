@@ -17,9 +17,6 @@ var app = http.createServer(function(request, response) {
 	// response.write(fileHTML);
 	// response.end();
 });
-	
-
-
 
 var port = process.env.PORT || 5000;
 app.listen(port);
