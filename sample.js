@@ -5,12 +5,14 @@ var url = require("url");
 var app = http.createServer(function(request, response) {
 	var pathname = url.parse(request.url).pathname;
 
-	html = fs.readFile('./simplePage.html');
-	
-	response.writeHead(200, {"Content-Type": "text/html"});
-	response.write("Hello World at " + pathname);
-	// response.write(typeof(fileHTML));
-	response.end();
+	fs.readFile('./simplePage.html', 'utf-8', function(err, html) {
+		if (err) {
+			throw err;
+		}
+		// response.write("Hello World at " + pathname);
+		response.write(html);
+		response.end();
+	});
 });
 
 var port = process.env.PORT || 5000;
