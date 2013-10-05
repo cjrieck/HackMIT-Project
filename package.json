@@ -2,6 +2,7 @@
   "name": "HackMITProject",
   "version": "0.0.01",
   "dependencies": {},
+  "repository": "https://github.com/cjrieck/HackMIT-Project.git",
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
