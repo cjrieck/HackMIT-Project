@@ -10,9 +10,9 @@ var app = http.createServer(function(request, response) {
 		fileHTML = html;
 	});
 	
-	response.writeHeader(200, {"Content-Type": "text/html"});
+	response.writeHead(200, {"Content-Type": "text/html"});
 	// response.write("Hello World at " + pathname);
-	response.write(fileHTML);
+	response.write(typeof(fileHTML));
 	response.end();
 });
 
