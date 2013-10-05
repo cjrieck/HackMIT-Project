@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 app.use(express.logger());
+app.set('view engine', 'html');
 
 app.get('/', function(request, response) {
   response.render('simplePage', {
