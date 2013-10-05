@@ -1,1 +1,1 @@
-hackmit: node hello_node.js
+testing: node testing.js
