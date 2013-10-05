@@ -3,15 +3,15 @@ var fs = require("fs");
 
 var app = http.createServer(function(request, response) {
 
-  fs.readfile('./simplePage.html', function(err, html){
-  	if (err){
-  		throw err;
-  	}
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write("simplePage.html");
-    response.end();
-  });
-  
+	fs.readfile('./simplePage.html', function(err, html){
+		if (err){
+			throw err;
+		}
+		response.writeHead(200, {"Content-Type": "text/html"});
+		response.write("simplePage.html");
+		response.end();
+	});
+	
 // var url = require("url");
 
 // var app = http.createServer(function(request, response) {
