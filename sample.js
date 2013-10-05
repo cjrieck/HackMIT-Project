@@ -3,15 +3,9 @@ var fs = require("fs");
 var url = require("url");
 
 var app = http.createServer(function(request, response) {
-	var fileHTML;
 	var pathname = url.parse(request.url).pathname;
 
-	fs.readFile('./simplePage.html', function(err, html) {
-		if (err) {
-			throw err;
-		}
-		fileHTML = html;
-	});
+	html = fs.readFile('./simplePage.html');
 	
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write("Hello World at " + pathname);
