@@ -7,7 +7,7 @@ var app = http.createServer(function(request, response) {
 		if (err){
 			throw err;
 		}
-		response.writeHead(200, {"Content-Type": "text/html"});
+		response.writeHeader(200, {"Content-Type": "text/html"});
 		response.write(html);
 		response.end();
 	});
