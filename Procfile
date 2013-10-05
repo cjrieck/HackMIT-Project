@@ -1,1 +1,1 @@
-testing: node testing.js
+web: node web.js
