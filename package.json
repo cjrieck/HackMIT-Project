@@ -2,8 +2,8 @@
   "name": "HackMITProject",
   "version": "0.0.1",
   "repository": {
-  	"type" : "git",
-  	"url" : "https://github.com/cjrieck/HackMIT-Project.git"
+  	"type": "git",
+  	"url": "https://github.com/cjrieck/HackMIT-Project.git"
   },
   "dependencies": {
     "express": "3.1.x"
