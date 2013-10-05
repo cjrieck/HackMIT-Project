@@ -3,13 +3,13 @@ var app = express();
 app.use(express.logger());
 
 app.get('/', function(request, response) {
-  response.render('simplePage', {
-  	title: "Home"
-  });
+	response.render('simplePage', {
+		title: "Home"
+	});
 });
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
-  console.log("Listening on " + port);
+	console.log("Listening on " + port);
 });
 
