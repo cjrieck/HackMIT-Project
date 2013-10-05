@@ -11,10 +11,10 @@ var app = http.createServer(function(request, response) {
 	});
 	
 	response.writeHead(200, {"Content-Type": "text/html"});
-	response.write("Hello World at " + pathname);
-	response.end();
-	// response.write(fileHTML);
+	// response.write("Hello World at " + pathname);
 	// response.end();
+	response.write(fileHTML);
+	response.end();
 });
 
 var port = process.env.PORT || 5000;
