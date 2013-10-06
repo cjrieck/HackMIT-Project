@@ -28,15 +28,24 @@ $(function() {
 
 
 	dataStore.on('child_added', function(dataSnapshot) { // Added an event
+		var attendingList = 'People attending: ';
 		var data = dataSnapshot.val();
 		var template = $('#eventTemplate').html();
-		
+
+		if ('attending' in data) {
+			for (key in data.attending) {
+				attendingList += data.attending[key] + ', ';
+			}
+			attendingList = attendingList.slice(0, attendingList.length - 2);
+		}
+
 		template = template.replace(/\{0\}/g, data.title);
 		template = template.replace(/\{1\}/g, data.description);
 		template = template.replace(/\{2\}/g, escape(dataSnapshot.name()));
-		if ('attending' in data) template = template.replace(/\{3\}/g, data.attending.join(','));
+		template = template.replace(/\{3\}/g, attendingList);
 
 		$('#eventdiv').append(template);
+		
 
 		$('.actionButton').unbind('click');
 		$('.actionButton').click(function() {
