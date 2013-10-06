@@ -3,17 +3,13 @@ var fs = require("fs");
 var url = require("url");
 
 var app = http.createServer(function(request, response) {
-	var fileHTML;
 	var pathname = url.parse(request.url).pathname;
 
-	fs.readFile('./simplePage.html', 'utf-8', function(err, html) {
-		fileHTML = html;
-		response.write(fileHTML);
-	});
-
-	response.write("Hello World at " + pathname + "\n");
+	html = fs.readFileSync('./simplePage.html', 'utf-8');
+	response.write(html);
 	response.end();
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 7500;
 app.listen(port);
+console.log("Listening on port: " + port);
