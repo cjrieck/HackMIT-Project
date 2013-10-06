@@ -29,6 +29,7 @@ var app = http.createServer(function(request, response) {
 	}
 
 	html = fs.readFileSync(filename, 'utf-8');
+	
 	response.write(html);
 	console.log("Served html (" + filename + ") file to broswer.");
 	response.end(); // Tells the broswer that the response is complete
@@ -37,3 +38,4 @@ var app = http.createServer(function(request, response) {
 var port = process.env.PORT || 7500;
 app.listen(port);
 console.log("Listening on port: " + port);
+
