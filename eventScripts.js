@@ -45,12 +45,16 @@ $(function() {
 		template = template.replace(/\{3\}/g, attendingList);
 
 		$('#eventdiv').append(template);
-		
+
 
 		$('.actionButton').unbind('click');
 		$('.actionButton').click(function() {
 			var identifier = unescape($(this).parents('.eventwrapper').find('.identifier').val());
 			var usernameToAdd = $('#attendee_interested').val();
+
+			if (usernameToAdd == '') {
+				return;
+			}
 
 			var classes = $(this).prop('class').split(' ');
 			destination = classes[classes.length - 1];
@@ -60,6 +64,29 @@ $(function() {
 				// if (err) alert('Data could not be written' + err); // callback if error
 				// else alert('Event saved successfully');
 			});
+		});
+	});
+
+	dataStore.on('child_changed', function(dataSnapshot) {
+		var identifier = dataSnapshot.name();
+
+		// alert($("."+identifier).prop('tagName'));
+		$.each($('.identifier'), function() {
+			if ((identifier) == $(this).val()) {
+				var data = dataSnapshot.val();
+				var attendingList = 'People attending: ';
+
+				if ('attending' in data) {
+					for (key in data.attending) {
+						attendingList += data.attending[key] + ', ';
+					}
+					attendingList = attendingList.slice(0, attendingList.length - 2);
+				}
+
+				$(this).parent().find('.eventtitle').html(data.title);
+				$(this).parent().find('.eventdescription').html(data.description);
+				$(this).parent().find('.eventcomments').html(attendingList);
+			}
 		});
 	});
 });
