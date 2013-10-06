@@ -34,7 +34,7 @@ $(function() {
 		template = template.replace(/\{1\}/g, data.description);
 		// template = template.replace(/\{2\}/g, escape(JSON.stringify(data)));
 		template = template.replace(/\{2\}/g, escape(dataSnapshot.name()));
-		// template = template.replace(/\{3\}/g, data);
+		template = template.replace(/\{3\}/g, data.attending.join(','));
 		$('#eventdiv').append(template);
 
 		$('.actionButton').unbind('click');
