@@ -2,9 +2,62 @@
 
 <html>
 
+<style>
+div {
+	position: relative;
+	/*border: 2px dotted red;*/
+}
+
+.eventwrapper {
+	float: left;
+	margin-top: 20px;
+	border-top: 1px solid #AAAAAA;
+	padding-top: 10px;
+	margin-right: 20px;
+	border-right: 1px solid #AAAAAA;
+	padding-right: 10px;
+	border-color: black;
+	height: 300px;
+	width: 400px;
+}
+
+.eventtitle {
+	border-color: blue;
+	height: 50px;
+	width: 100%;
+}
+
+.eventcontent {
+	border-color: red;
+	height: 200px;
+	width: 100%;
+}
+
+.eventdescription {
+	overflow: hidden;
+	height: 160px;
+}
+
+.eventoptions {
+	border-color: yellow;
+	height: 40px;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.eventcomments {
+	border-color: purple;
+	height: 50px;
+	width: 100%;
+}
+</style>
+
 <head>
 	<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+	<script type='text/javascript' src='eventScripts.js'></script>
 </head>
 
 <body>
@@ -15,66 +68,31 @@
 		Author: <input type='text' id='author' class='eventDetails' placeholder='Your name'>
 	</form>
 
-	<!-- <button type='button'>Make Event</button> -->
-	<button type='button' id='attending' class='actionButton'>Attend</button>
-	<button type='button' id='interested' class='actionButton'>Interested</button>
-
 
 	<form>
 		Name of Attendee/Interested: <input type='text' id='attendee_interested' class='personInfo' placeholder='Your name'>
 	</form>
 
-	<script>
-		var dataStore = new Firebase('https://hackmitproject.firebaseio.com/'); // instantiate Firebase object
-
-
-		// if making a new event (button click)
-		$('.eventDetails').keypress(function(key){ // one 'Enter' and in #description input 
-			if (key.keyCode === 13){
-
-				// get the text in the title and description fields
-				var title = $('#eventTitle').val();
-				var description = $('#description').val();
-				var author = $('#author').val();
-
-				if (title === "" || description === "" || author === ""){ // if either field is empty
-					alert("Can not have empty field. Please make sure the form is completely filled out");
-					return false;
-				}
-
-				// combined push() and set(). Will update JSON all at once with timestamp
-				dataStore.push({title: title, description: description, attendees: [author], interested: '[]'}, function(err){ if (err){
-						alert('Data could not be written' + err); // callback if error
-					}
-					else{
-						alert('Event saved successfully');
-					}
-				});
-			}
-		});
-
-		// when people are adding themselves to an event or events
-		$('.actionButton').onclick = function(){
-
-			dataStore.once('value', function(dataSnapshot){
-				var data = dataSnapshot.val(); // will return JSON object
-				console.log(data);
-				$('#attending').onclick = function(){ // if choosing to accept
-					var index = data.indexOf('attendees'); // get array of attendees
-				}
-				
-				$('#interested').onclick = function(){
-					var index = data.indexOf('interested'); // get array of interested people
-
-				}
-
-				index.push($('#attendee_interested').val());  // should be gotten from user name
-
-			});
-		}
-
-	</script>
+	<div id="eventdiv"></div>
 
 </body>
+
+<script type="text/template" id="eventTemplate">
+
+<div class="eventwrapper">
+	<input type="hidden" class="identifier" value="{2}" />
+	<div class="eventtitle">{0}</div>
+	<div class="eventcontent">
+		<div class="eventdescription">{1}</div>
+		<div class="eventoptions">
+			<button type='button' class='actionButton attending'>Attend</button>
+			<button type='button' class='actionButton interested'>Interested</button>
+		</div>
+	</div>
+	<div class="eventcomments">
+	</div>
+</div>
+
+</script>
 
 </html>

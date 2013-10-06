@@ -13,6 +13,14 @@ var app = http.createServer(function(request, response) {
 		return;
 	}
 
+	if (pathname == '/eventScripts.js') {
+		console.log("Got a request for a js.");
+		jsFile = fs.readFileSync('eventScripts.js', 'utf-8');
+		response.write(jsFile);
+		response.end();
+		return;
+	}
+
 	var splitPath = pathname.split('/');
 	if (splitPath.length > 2) {
 		response.write('Hahahaha, you done entered a bad URL.');
@@ -25,7 +33,7 @@ var app = http.createServer(function(request, response) {
 		var filename = './simplePage.html';
 	}
 	else {
-		var filename = './test.html';
+		var filename = './secondaryPage.html';
 	}
 
 	html = fs.readFileSync(filename, 'utf-8');
