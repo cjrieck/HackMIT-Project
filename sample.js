@@ -11,9 +11,9 @@ var app = http.createServer(function(request, response) {
 		response.write(fileHTML);
 	});
 
-	response.write("Hello World at " + pathname + "\n");
+	// response.write("Hello World at " + pathname + "\n");
 	response.end();
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 7500;
 app.listen(port);

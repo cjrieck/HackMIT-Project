@@ -10,8 +10,24 @@
 
 	Hi Node
 
+	<form>
+		Title: <input type='text' id='eventTitle' placeholder='Title'>
+		Description: <input type='text' id='description' placeholder='Description'>
+	</form>
 	<script>
 		var dataStore = new Firebase('https://hackmitproject.firebaseio.com/');
+		$('#description').keypress(function(key){
+			if (key.keyCode === 13){
+				var title = $('#eventTitle').val();
+				var description = $('#description').val();
+
+				dataStore.set({title: title, description: description}, function(err){
+					if (err){
+						alert('Data could not be written' + err);
+					}
+				});
+			}
+		});
 
 	</script>
 
