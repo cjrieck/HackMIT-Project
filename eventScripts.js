@@ -30,11 +30,12 @@ $(function() {
 	dataStore.on('child_added', function(dataSnapshot) { // Added an event
 		var data = dataSnapshot.val();
 		var template = $('#eventTemplate').html();
+		
 		template = template.replace(/\{0\}/g, data.title);
 		template = template.replace(/\{1\}/g, data.description);
-		// template = template.replace(/\{2\}/g, escape(JSON.stringify(data)));
 		template = template.replace(/\{2\}/g, escape(dataSnapshot.name()));
-		template = template.replace(/\{3\}/g, data.attending.join(','));
+		if ('attending' in data) template = template.replace(/\{3\}/g, data.attending.join(','));
+
 		$('#eventdiv').append(template);
 
 		$('.actionButton').unbind('click');
