@@ -29,6 +29,7 @@ $(function() {
 
 	dataStore.on('child_added', function(dataSnapshot) { // Added an event
 		var attendingList = 'People attending: ';
+		var interestedNumber = 'Num people interested: ';
 		var data = dataSnapshot.val();
 		var template = $('#eventTemplate').html();
 
@@ -38,11 +39,16 @@ $(function() {
 			}
 			attendingList = attendingList.slice(0, attendingList.length - 2);
 		}
+		if ('interested' in data) {
+			interestedNumber += Object.keys(data.interested).length.toString();
+		}
+
+		var interestStats = attendingList + '<br>' + interestedNumber;
 
 		template = template.replace(/\{0\}/g, data.title);
 		template = template.replace(/\{1\}/g, data.description);
 		template = template.replace(/\{2\}/g, escape(dataSnapshot.name()));
-		template = template.replace(/\{3\}/g, attendingList);
+		template = template.replace(/\{3\}/g, interestStats);
 
 		$('#eventdiv').append(template);
 
@@ -75,6 +81,7 @@ $(function() {
 			if ((identifier) == $(this).val()) {
 				var data = dataSnapshot.val();
 				var attendingList = 'People attending: ';
+				var interestedNumber = 'Num people interested: ';
 
 				if ('attending' in data) {
 					for (key in data.attending) {
@@ -82,10 +89,15 @@ $(function() {
 					}
 					attendingList = attendingList.slice(0, attendingList.length - 2);
 				}
+				if ('interested' in data) {
+					interestedNumber += Object.keys(data.interested).length.toString();
+				}
+
+				var interestStats = attendingList + '<br>' + interestedNumber;
 
 				$(this).parent().find('.eventtitle').html(data.title);
 				$(this).parent().find('.eventdescription').html(data.description);
-				$(this).parent().find('.eventcomments').html(attendingList);
+				$(this).parent().find('.eventcomments').html(interestStats);
 			}
 		});
 	});
