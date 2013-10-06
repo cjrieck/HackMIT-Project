@@ -6,28 +6,72 @@
 	<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
 </head>
+
 <body>
 
-	Hi Node
+	<form name='form'>
+		Title: <input type='text' id='eventTitle' class='eventDetails' placeholder='Title'>
+		Description: <input type='text' id='description' class='eventDetails' placeholder='Description of your event'>
+		Author: <input type='text' id='author' class='eventDetails' placeholder='Your name'>
+	</form>
+
+	<!-- <button type='button'>Make Event</button> -->
+	<button type='button' id='attending' class='actionButton'>Attend</button>
+	<button type='button' id='interested' class='actionButton'>Interested</button>
+
 
 	<form>
-		Title: <input type='text' id='eventTitle' placeholder='Title'>
-		Description: <input type='text' id='description' placeholder='Description'>
+		Name of Attendee/Interested: <input type='text' id='attendee_interested' class='personInfo' placeholder='Your name'>
 	</form>
+
 	<script>
-		var dataStore = new Firebase('https://hackmitproject.firebaseio.com/');
-		$('#description').keypress(function(key){
+		var dataStore = new Firebase('https://hackmitproject.firebaseio.com/'); // instantiate Firebase object
+
+
+		// if making a new event (button click)
+		$('.eventDetails').keypress(function(key){ // one 'Enter' and in #description input 
 			if (key.keyCode === 13){
+
+				// get the text in the title and description fields
 				var title = $('#eventTitle').val();
 				var description = $('#description').val();
+				var author = $('#author').val();
 
-				dataStore.set({title: title, description: description}, function(err){
-					if (err){
-						alert('Data could not be written' + err);
+				if (title === "" || description === "" || author === ""){ // if either field is empty
+					alert("Can not have empty field. Please make sure the form is completely filled out");
+					return false;
+				}
+
+				// combined push() and set(). Will update JSON all at once with timestamp
+				dataStore.push({title: title, description: description, attendees: [author], interested: '[]'}, function(err){ if (err){
+						alert('Data could not be written' + err); // callback if error
+					}
+					else{
+						alert('Event saved successfully');
 					}
 				});
 			}
 		});
+
+		// when people are adding themselves to an event or events
+		$('.actionButton').onclick = function(){
+
+			dataStore.once('value', function(dataSnapshot){
+				var data = dataSnapshot.val(); // will return JSON object
+				console.log(data);
+				$('#attending').onclick = function(){ // if choosing to accept
+					var index = data.indexOf('attendees'); // get array of attendees
+				}
+				
+				$('#interested').onclick = function(){
+					var index = data.indexOf('interested'); // get array of interested people
+
+				}
+
+				index.push($('#attendee_interested').val());  // should be gotten from user name
+
+			});
+		}
 
 	</script>
 
